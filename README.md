@@ -30,7 +30,32 @@ A minimalistic MERN stack application that allows users to view and book travel 
 
 ## Screen Shots
 
+# Homepage 
+
+![Add package](docImg/withoutadminPNG.PNG)
+
 # Add package 
 
 ![Add package](docImg/addpackage.PNG)
+
+# Admin login
+
+![Add package](docImg/adminlogin.PNG)
+
+# Book package 
+
+![Book package](docImg/book.PNG)
+
+# Package details
+
+![detailed package](docImg/detailedpage.PNG)
+
+# Invoice details 
+
+![tour invoice](docImg/invoice.PNG)
+
+# Update package 
+
+![Add package](docImg/updatepackage.PNG)
+
 
