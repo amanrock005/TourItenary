@@ -6,6 +6,7 @@ import { connectDB } from "./lib/db.js";
 
 import packageRoutes from "./routes/package.route.js";
 import bookingRoutes from "./routes/booking.route.js";
+import adminRoutes from "./routes/admin.route.js";
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ app.use(express.json());
 
 app.use("/api/packages", packageRoutes);
 app.use("/api/bookings", bookingRoutes);
+app.use("/api/admin", adminRoutes);
 
 app.listen(PORT, () => {
   console.log(`server running on http://localhost:${PORT}`);

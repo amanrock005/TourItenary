@@ -1,6 +1,5 @@
 import Booking from "../models/booking.model.js";
 import Package from "../models/package.model.js";
-import { PDFDocument } from "pdf-lib";
 
 export const submitBooking = async (req, res) => {
   try {
@@ -10,40 +9,47 @@ export const submitBooking = async (req, res) => {
       email,
       phoneNumber,
       numberOfTravelers,
-      specialRequests,
+      specialRequest,
     } = req.body;
-    const pkg = await Package.findById(packageId);
-    if (!pkg) {
+
+    // Fetch package details
+    const selectedPackage = await Package.findById(packageId);
+    if (!selectedPackage) {
       return res.status(404).json({ message: "Package not found" });
     }
-    const totalPrice = pkg.price * numberOfTravelers;
 
+    // Calculate total price
+    const totalPrice = selectedPackage.price * numberOfTravelers;
+
+    // Create a new booking
     const newBooking = new Booking({
       packageId,
       customerName,
       email,
       phoneNumber,
       numberOfTravelers,
-      specialRequests,
+      specialRequest,
       totalPrice,
     });
 
     await newBooking.save();
 
-    const pdfDoc = await PDFDocument.create();
-    const page = pdfDoc.addPage([600, 400]);
-    page.drawText(
-      `Invoice\n\nCustomer: ${customerName}\nEmail: ${email}\nPackage: ${pkg.title}\nTravelers: ${numberOfTravelers}\nTotal Price: $${totalPrice}`,
-      { x: 50, y: 350 }
-    );
-
-    const pdfBytes = await pdfDoc.save();
-
-    res.setHeader("Content-Disposition", 'attachment; filename="invoice.pdf"');
-    res.setHeader("Content-Type", "application/pdf");
-    res.send(Buffer.from(pdfBytes));
-  } catch (err) {
-    console.error("error in submitBooking controller ", err.message);
-    res.status(500).json({ messge: "Internal server error" });
+    // Response with booking and invoice details
+    res.status(201).json({
+      message: "Booking successful!",
+      bookingId: newBooking._id,
+      invoice: {
+        customerName,
+        email,
+        phoneNumber,
+        packageTitle: selectedPackage.title,
+        pricePerPerson: selectedPackage.price,
+        numberOfTravelers,
+        totalPrice,
+      },
+    });
+  } catch (error) {
+    console.error("Error creating booking:", error.message);
+    res.status(500).json({ message: "Failed to book the package" });
   }
 };

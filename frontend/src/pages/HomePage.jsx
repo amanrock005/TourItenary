@@ -1,9 +1,9 @@
-import PackageList from "../components/PackageList";
+import AllPackagesPage from "../components/AllPackage";
 
 export default function HomePage() {
   return (
     <div>
-      <PackageList />
+      <AllPackagesPage />
     </div>
   );
 }

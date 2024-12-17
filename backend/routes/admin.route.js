@@ -1,22 +1,21 @@
 import express from "express";
+import {
+  addNewPackage,
+  deletePackage,
+  updatePackage,
+} from "../controllers/admin.controller.js";
+import multer from "multer";
 
 const router = express.Router();
 
-const storage = multer.memoryStorage();
-const upload = multer({
-  storage,
-  limits: { filesSize: 5 * 1024 * 1024 },
-  fileFilter: (req, file, cb) => {
-    if (file.mimetype.startsWith("image/")) {
-      cb(null, true);
-    } else {
-      cb(new Error("Only image files are allowed! "), false);
-    }
-  },
-});
+const storage = multer.diskStorage({});
+const upload = multer({ storage });
 
-router.post("/packages", upload.single("image"), addNewPackage);
-router.put("/packages/:id", upload.single("image"), updatePackage);
-router.delete("/packages/:id", deletePackage);
+// Add a package
+router.post("/addpackage", upload.single("image"), addNewPackage);
+// update a package
+router.put("/updatepackage/:id", updatePackage);
+// delete a package
+router.delete("/deletepackage/:id", deletePackage);
 
 export default router;

@@ -6,7 +6,7 @@ import {
 
 const router = express.Router();
 
-router.get("/", getAllPackages);
-router.get("/:id", getSinglePackage);
+router.get("/getall", getAllPackages);
+router.get("/getone/:id", getSinglePackage);
 
 export default router;
