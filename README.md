@@ -32,5 +32,5 @@ A minimalistic MERN stack application that allows users to view and book travel 
 
 # Add package 
 
-![Add package](docImg/addpackage.png)
+![Add package](docImg/addpackage.PNG)
 
