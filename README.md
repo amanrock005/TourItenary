@@ -58,4 +58,6 @@ A minimalistic MERN stack application that allows users to view and book travel 
 
 ![Add package](docImg/updatepackage.PNG)
 
+## Live Link
 
+- **https://touritenary.onrender.com/**
