@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { axiosInstance } from "../lib/axiosInstance";
 import { useParams, useNavigate } from "react-router-dom";
 
 function UpdatePackagePage() {
@@ -20,9 +20,7 @@ function UpdatePackagePage() {
   useEffect(() => {
     const fetchPackage = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:5000/api/packages/getone/${id}`
-        );
+        const response = await axiosInstance.get(`/packages/getone/${id}`);
         const { title, description, price, availableDates, image } =
           response.data;
 
@@ -62,10 +60,7 @@ function UpdatePackagePage() {
     };
 
     try {
-      await axios.put(
-        `http://localhost:5000/api/admin/updatepackage/${id}`,
-        updatedData
-      );
+      await axiosInstance.put(`/admin/updatepackage/${id}`, updatedData);
       alert("Package updated successfully!");
       navigate(`/package/${id}`);
     } catch (error) {

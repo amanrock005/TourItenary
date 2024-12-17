@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import { axiosInstance } from "../lib/axiosInstance";
 
 function AddPackagePage() {
   const [formData, setFormData] = useState({
@@ -45,11 +45,9 @@ function AddPackagePage() {
       data.append("image", formData.image);
 
       // Send POST request to the backend
-      const response = await axios.post(
-        "http://localhost:5000/api/admin/addpackage",
-        data,
-        { headers: { "Content-Type": "multipart/form-data" } }
-      );
+      const response = await axiosInstance.post("/admin/addpackage", data, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
 
       // Handle success
       setSuccessMessage(response.data.message);

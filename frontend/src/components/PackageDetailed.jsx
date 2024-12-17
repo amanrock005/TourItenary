@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { axiosInstance } from "../lib/axiosInstance";
 
 function PackageDetailsPage() {
   const { id } = useParams();
@@ -13,9 +13,7 @@ function PackageDetailsPage() {
   useEffect(() => {
     const fetchPackageDetails = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:5000/api/packages/getone/${id}`
-        );
+        const response = await axiosInstance.get(`/packages/getone/${id}`);
         setPkg(response.data);
       } catch (error) {
         console.error("Error fetching package details:", error.message);

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { axiosInstance } from "../lib/axiosInstance";
 
 function BookingFormPage() {
   const { id } = useParams();
@@ -24,13 +24,10 @@ function BookingFormPage() {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/bookings/booktour",
-        {
-          packageId: id,
-          ...formData,
-        }
-      );
+      const response = await axiosInstance.post("/bookings/booktour", {
+        packageId: id,
+        ...formData,
+      });
 
       // Redirect to Invoice Page with booking details
       navigate(`/invoice`, { state: response.data.invoice });

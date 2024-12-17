@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { axiosInstance } from "../lib/axiosInstance";
 import { useNavigate } from "react-router-dom";
 
 function AllPackagesPage() {
@@ -15,9 +15,7 @@ function AllPackagesPage() {
   useEffect(() => {
     const fetchPackages = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:5000/api/packages/getall"
-        );
+        const response = await axiosInstance.get("/packages/getall");
         setPackages(response.data);
       } catch (error) {
         console.error("Error fetching packages:", error.message);
